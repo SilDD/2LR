@@ -20,7 +20,7 @@ const Profile = () => {
     return (
         <View style={styles.container}>
 
-            <XStack height={200} alignItems="center" gap="$8">
+            <XStack height={200} gap="$8">
                 <SimpleSlider width={200}/>
             </XStack>
 
