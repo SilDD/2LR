@@ -1,16 +1,40 @@
+//
+// import React from "react";
+// import {Stack} from "expo-router";
+//
+// const RootLayout = () => {
+//     return (
+//         <Stack>
+//             <Stack.Screen options={{headerShown:false}} name="index"></Stack.Screen>
+//             <Stack.Screen options={{headerShown:false}} name="(tabs)"></Stack.Screen>
+//         </Stack>
+//     )
+// }
+//
+// export default RootLayout;
+//
+//
 
-import React from "react";
-import {Stack} from "expo-router";
 
-const RootLayout = () => {
-    return (
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { Stack } from 'expo-router'
+import { useColorScheme } from 'react-native'
+import { TamaguiProvider } from 'tamagui'
+
+import { tamaguiConfig } from '@/tamagui.config'
+
+export default function RootLayout() {
+  const colorScheme = useColorScheme()
+
+  return (
+    // add this
+    <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme!}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
-            <Stack.Screen options={{headerShown:false}} name="index"></Stack.Screen>
-            <Stack.Screen options={{headerShown:false}} name="(tabs)"></Stack.Screen>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         </Stack>
-    )
+      </ThemeProvider>
+    </TamaguiProvider>
+  )
 }
-
-export default RootLayout;
-
-
