@@ -1,18 +1,16 @@
 import {StyleSheet,Text,View} from "react-native";
 import React from "react";
-import {Link} from "expo-router";
 
-const Index = () => {
+
+const Communication = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.headline}>2RLife</Text>
-            <Link style={styles.link} href="/(tabs)/home">öffnen</Link>
+            <Text style={styles.headline}>Hier entsteht ein Chatbereich</Text>
         </View>
     )
 }
 
-
-export default Index;
+export default Communication;
 
 const styles = StyleSheet.create({
     container: {
@@ -24,12 +22,5 @@ const styles = StyleSheet.create({
     headline: {
         color: 'white',
         fontSize: 24,
-    },
-    link: {
-        marginTop: 20,
-        color: 'white',
-        fontSize: 24,
-        backgroundColor: 'blue',
-        padding: 10,
     }
 })

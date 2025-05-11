@@ -2,7 +2,7 @@ import {Alert, Button, StyleSheet, Text, TextInput, View} from 'react-native'
 import React, {useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Add = () => {
+const Favourite = () => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
@@ -66,11 +66,12 @@ const Add = () => {
     )
 }
 
-export default Add
+export default Favourite
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20
+        padding: 20,
+        backgroundColor: 'green'
     },
     title: {
         fontSize: 24,
