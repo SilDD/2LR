@@ -1,16 +1,11 @@
+// app/(tabs)/home/index.tsx
+import { View } from 'react-native';
+import { HomeCategories } from '@/components/navigation/homeCategories';
 
-import {View, Text} from "tamagui";
-import {HomeCategories} from "@/components/navigation/homeCategories";
-
-
-
-
-export default function Home() {
+export default function HomeStart() {
   return (
-
-      <View>
-        <Text>Home</Text>
-            <HomeCategories />
-      </View>
-  )
+    <View style={{ flex: 1 }}>
+      <HomeCategories />
+    </View>
+  );
 }

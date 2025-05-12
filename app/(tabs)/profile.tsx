@@ -1,44 +1,77 @@
-import {StyleSheet, Text, View} from "react-native";
-import React from "react";
-import type {SliderProps} from 'tamagui'
-import {Slider, XStack} from 'tamagui'
-
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import React from 'react';
 
 const Profile = () => {
-    function SimpleSlider({children, ...props}: SliderProps) {
-        return (
-            <Slider defaultValue={[50]} max={100} step={1} {...props}>
-                <Slider.Track>
-                    <Slider.TrackActive/>
-                </Slider.Track>
-                <Slider.Thumb size="$2" index={0} circular/>
-                {children}
-            </Slider>
-        )
-    }
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* Profilbild */}
+      <Image
+        source={{ uri: 'https://i.pravatar.cc/300' }}
+        style={styles.profileImage}
+      />
 
-    return (
-        <View style={styles.container}>
+      {/* Name & Alter */}
+      <Text style={styles.name}>Anna Müller, 28</Text>
 
-            <XStack height={200} gap="$8">
-                <SimpleSlider width={200}/>
-            </XStack>
+      {/* Beschreibung */}
+      <Text style={styles.description}>
+        Ich liebe gutes Essen, Natur und spontane Roadtrips. Offen für neue Abenteuer und tiefgründige Gespräche 🌿🚗
+      </Text>
 
-        </View>
-    )
-}
+      {/* Chips */}
+      <View style={styles.chipContainer}>
+        <Text style={styles.chip}>📚 Lesen</Text>
+        <Text style={styles.chip}>🎵 Musik</Text>
+        <Text style={styles.chip}>🌍 Reisen</Text>
+        <Text style={styles.chip}>🐶 Tiere</Text>
+        <Text style={styles.chip}>💬 Deep Talks</Text>
+      </View>
+    </ScrollView>
+  );
+};
 
 export default Profile;
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'green',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    headline: {
-        color: 'white',
-        fontSize: 24,
-    }
-})
+  container: {
+    padding: 24,
+    backgroundColor: '#f9f9f9',
+    alignItems: 'center',
+  },
+  profileImage: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    borderWidth: 3,
+    borderColor: '#9ACD32',
+    marginBottom: 16,
+  },
+  name: {
+    fontSize: 26,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 8,
+  },
+  description: {
+    fontSize: 16,
+    color: '#555',
+    textAlign: 'center',
+    marginBottom: 20,
+    lineHeight: 22,
+  },
+  chipContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  chip: {
+    backgroundColor: '#e0f7d9',
+    color: '#2e7d32',
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderRadius: 20,
+    margin: 4,
+    fontSize: 14,
+  },
+});

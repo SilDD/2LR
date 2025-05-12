@@ -4,7 +4,7 @@ import {StackHomeTabs} from "@/components/navigation/simpleHomeTabs";
 export default function ClubScreen() {
   return (
     <YStack >
-        <StackHomeTabs/>
+        {/*<StackHomeTabs/>*/}
       <Text fontSize="$6">Clubs in deiner Nähe</Text>
       {/* Bar-Liste oder Karte */}
     </YStack>
