@@ -9,9 +9,35 @@ import {
   Text,
 } from 'tamagui'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import {useRouter} from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function AppHeader() {
   const [open, setOpen] = useState(false)
+   const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+   const handleClearName = async () => {
+
+
+    setIsLoading(true);
+    try {
+      await AsyncStorage.setItem('userName', "");
+    } catch (error) {
+      console.error('Fehler beim Abmelden:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+
+  const handleUserBye = () => {
+        handleClearName().then(r =>
+        router.navigate('/'));
+        setOpen(false);
+    }
 
   return (
     <YStack
@@ -30,11 +56,10 @@ export default function AppHeader() {
         {/* Burger Menu mit Dropdown */}
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <Button
-              icon={<MaterialIcons name="menu" size={18} color="black" />}
+            <Button style={{backgroundColor: 'transparent', color: '#ffffff', border: 'none'}}
+              icon={<MaterialIcons name="menu" size={30} color="#ffffff" />}
               size="$5"
             >
-
             </Button>
           </PopoverTrigger>
           <PopoverContent
@@ -43,14 +68,14 @@ export default function AppHeader() {
             elevation="$5"
           >
             <YStack space="$2">
-              <Button onPress={() => alert('Start gedrückt')} style={{backgroundColor: 'transparent', color: '#ffffff', border: 'none'}}>
-                Start
-              </Button>
               <Button onPress={() => alert('Über uns gedrückt')} style={{backgroundColor: 'transparent', color: '#ffffff', border: 'none'}}>
                 Über uns
               </Button>
               <Button onPress={() => alert('Kontakt gedrückt')} style={{backgroundColor: 'transparent', color: '#ffffff', border: 'none'}}>
                 Kontakt
+              </Button>
+              <Button onPress={() => handleUserBye()} style={{backgroundColor: 'transparent', color: '#ffffff', border: 'none'}}>
+               Abmelden
               </Button>
             </YStack>
           </PopoverContent>
