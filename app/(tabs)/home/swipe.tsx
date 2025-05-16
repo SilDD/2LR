@@ -49,6 +49,7 @@ export default function SwipeTabs() {
     }, [tab]);
 
     return (
+        <>
         <TabView
             navigationState={{index, routes}}
             renderScene={renderScene}
@@ -56,7 +57,7 @@ export default function SwipeTabs() {
             initialLayout={initialLayout}
             lazy // 👈 Lädt Tabs nur bei Bedarf
             removeClippedSubviews // 👈 Verbessert Performance
-            // renderLazyPlaceholder={() => <LoadingIndicator/>} // Fallback
         />
+        </>
     )
 }

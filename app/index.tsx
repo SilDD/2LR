@@ -1,28 +1,63 @@
-import { View, Text, Image } from 'tamagui'
-import { Link } from 'expo-router'
+import React, { useState } from 'react';
+import { View, Text, TextInput, Pressable, ActivityIndicator } from 'react-native';
+import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Index() {
+export default function NameInputScreen() {
+  const [name, setName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSaveName = async () => {
+    if (!name.trim()) return;
+
+    setIsLoading(true);
+    try {
+      await AsyncStorage.setItem('userName', name); // Async speichern
+      router.push('/(tabs)/home'); // Weiterleiten
+    } catch (error) {
+      console.error('Fehler beim Speichern:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <View flex={1} bg="#1a0025" p="$4" >
-      <Text fontSize="$9" fontWeight="700" color="#d100f9">Find Events</Text>
-      <Text color="#ccc" mb="$4">Discover the best events in your city</Text>
+    <View style={{ flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#1a0025' }}>
+      <Text style={{ fontSize: 24, color: '#d100f9', marginBottom: 10 }}>Willkommen!</Text>
+      <Text style={{ color: '#ccc', marginBottom: 30 }}>Wie sollen wir dich nennen?</Text>
 
-      <View  bg="#2a0038" overflow="hidden">
-        <Image
-          source={{ uri: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d' }}
-          height={180}
-          width="100%"
-        />
-        <View p="$3">
-          <Text fontSize="$7" fontWeight="600">Sunset Party</Text>
-          <Text color="#aaa">Berlin · May 18</Text>
-          <Link href="/(tabs)/home" asChild>
-            <Text mt="$2" p="$2" bg="#d100f9" color="#fff" >
-              Mitfeiern!
-            </Text>
-          </Link>
-        </View>
-      </View>
+      <TextInput
+        placeholder="Dein Name"
+        placeholderTextColor="#aaa"
+        value={name}
+        onChangeText={setName}
+        style={{
+          backgroundColor: '#2a0038',
+          color: 'white',
+          padding: 15,
+          borderRadius: 8,
+          marginBottom: 20,
+        }}
+      />
+
+      <Pressable
+        onPress={handleSaveName}
+        disabled={isLoading}
+        style={{
+          backgroundColor: '#d100f9',
+          padding: 15,
+          borderRadius: 8,
+          alignItems: 'center',
+          opacity: isLoading ? 0.6 : 1,
+        }}
+      >
+        {isLoading ? (
+          <ActivityIndicator color="white" />
+        ) : (
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Bestätigen</Text>
+        )}
+      </Pressable>
     </View>
-  )
+  );
 }
