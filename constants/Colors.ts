@@ -1,26 +1,43 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+const cozyTintLight = '#7B4B27'   // warmes Braun
+const cozyTintDark = '#375137'    // dunkles Grün
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
-export const Colors = {
+export const CozyColors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    text: '#5C443D',            // dunkles Braun
+    background: '#F5F0E6',      // helles Beige
+    tint: cozyTintLight,
+    icon: '#A1876F',            // mittleres Braun
+    tabIconDefault: '#A1876F',
+    tabIconSelected: cozyTintLight,
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    text: '#D3D3C8',            // helles Beige
+    background: '#1F2A24',      // dunkelgrün
+    tint: cozyTintDark,
+    icon: '#7C8A7B',            // gedämpftes Grün
+    tabIconDefault: '#7C8A7B',
+    tabIconSelected: cozyTintDark,
   },
-};
+}
+
+const partyTintLight = '#9B59B6'  // lila
+const partyTintDark = '#00FFFF'   // neon blau/türkis
+
+export const PartyColors = {
+  light: {
+    text: '#2C2C54',            // dunkles Lila-Blau
+    background: '#FFFFFF',      // weiß
+    tint: partyTintLight,
+    icon: '#8E44AD',            // dunkleres Lila
+    tabIconDefault: '#8E44AD',
+    tabIconSelected: partyTintLight,
+  },
+  dark: {
+    text: '#E0FFFF',            // helles Neonblau
+    background: '#2C003E',      // sehr dunkles Lila/Blau
+    tint: partyTintDark,
+    icon: '#00CED1',            // Neon Türkis
+    tabIconDefault: '#00CED1',
+    tabIconSelected: partyTintDark,
+  },
+}
