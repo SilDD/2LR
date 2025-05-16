@@ -32,37 +32,50 @@ const ListingPage = ({ categoryId, showFavoritesOnly = false }: ListingPageProps
   }
 
   return (
-    <YStack flex={1} p="$4" space="$4">
-      <Text fontSize="$6" fontWeight="bold" mb="$2">
+    <YStack flex={1} p="$4" space="$4" backgroundColor="#000000">
+      <Text fontSize="$6" fontWeight="bold" mb="$2" color="#fff">
         {showFavoritesOnly ? `Meine ${categoryId}` : categoryId}
       </Text>
 
       {displayedItems.length === 0 ? (
-        <Text>Keine Einträge.</Text>
+        <Text color="#fff">Keine Einträge.</Text>
       ) : (
         <FlatList
           data={displayedItems}
           keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={() => <YStack height={12} />}
           renderItem={({ item }) => (
-            <YStack borderWidth={1} borderColor="#ccc" borderRadius={10} overflow="hidden">
+            <YStack
+              flexDirection="row"
+              borderWidth={1}
+              borderColor="#333"
+              borderRadius={10}
+              overflow="hidden"
+              backgroundColor="#121212"
+              padding={8}
+              alignItems="center"
+            >
               {item.image && (
                 <Image
                   source={{ uri: item.image }}
                   alt={item.name}
-                  height={120}
-                  width="100%"
+                  height={80}
+                  width={80}
+                  borderRadius={10}
                   resizeMode="cover"
+                  mr={12}
                 />
               )}
-              <XStack p="$3" justifyContent="space-between" alignItems="center">
-                <Text fontWeight="600" fontSize="$4">
+              <XStack flex={1} justifyContent="space-between" alignItems="center">
+                <Text fontWeight="600" fontSize="$4" flexShrink={1} color="#fff">
                   {item.name}
                 </Text>
                 <Button
                   onPress={() => toggleFavorite(item.id)}
                   size="$3"
                   borderRadius={20}
-                  backgroundColor={favorites[item.id] ? 'red' : 'gray'}
+                  backgroundColor={favorites[item.id] ? '#e74c3c' : '#555'}
+                  themeInverse
                 >
                   {favorites[item.id] ? '★' : '☆'}
                 </Button>
