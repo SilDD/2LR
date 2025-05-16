@@ -37,7 +37,7 @@ export const StackHomeTabs = () => {
               <Tabs.Tab
                 unstyled
                 padding="$1.5"
-                hoverStyle={{ backgroundColor: '$color3' }}
+                hoverStyle={{ backgroundColor: 'green' }}
               >
                 <Text fontSize="$3" textAlign="center">
                   {category.name}
