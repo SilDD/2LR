@@ -1,33 +1,48 @@
-import { StyleSheet, Text, View} from 'react-native'
-import React, {useState} from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import React from 'react';
+import { useRouter } from 'expo-router'
+import { Card, Text, XStack, YStack } from 'tamagui'
+
+const categories = [
+  { id: 'bars', name: 'Bars', icon: '🍻' },
+  { id: 'cafes', name: 'Cafés', icon: '☕' },
+  { id: 'clubs', name: 'Clubs', icon: '🎧' },
+  { id: 'events', name: 'Events', icon: '🎪' },
+  { id: 'live', name: 'Live', icon: '🎤' },
+  { id: 'people', name: 'People', icon: '👥' }
+]
 
 const Favourite = () => {
+  const router = useRouter()
 
-    return (
-        <View>
-            <Text>Favouriten</Text>
-        </View>
-    )
+  const handlePress = (categoryId: string) => {
+    router.navigate(`/(tabs)/home/swipe?tab=${categoryId}`)
+  }
+
+  return (
+    <YStack space="$4" p="$4">
+      <Text fontSize="$6" fontWeight="bold">Favoriten nach Kategorie</Text>
+
+      {categories.map((category) => (
+        <Card
+          key={category.id}
+          elevate
+          bordered
+          size="$4"
+          animation="quick"
+          pressStyle={{ scale: 0.97 }}
+          onPress={() => handlePress(category.id)}
+        >
+          <Card.Header>
+            <XStack space="$2" alignItems="center">
+              <Text fontSize="$7">{category.icon}</Text>
+              <Text fontSize="$5" fontWeight="600">{category.name}</Text>
+            </XStack>
+          </Card.Header>
+        </Card>
+      ))}
+    </YStack>
+  )
 }
 
 export default Favourite
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-        backgroundColor: 'green'
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20
-    },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 10,
-        paddingLeft: 10
-    }
-})
