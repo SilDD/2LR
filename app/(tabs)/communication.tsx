@@ -56,7 +56,7 @@ const Communication = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={{ flex: 1 }}
     >
-      <YStack flex={1} p="$4" space="$3" backgroundColor="#fff">
+      <YStack flex={1} p="$4" space="$3" backgroundColor="$background" borderRadius={20}  font-color="#fff">
         <Text fontSize="$6" fontWeight="bold" mb="$3">
           Gruppenchat
         </Text>
@@ -64,18 +64,17 @@ const Communication = () => {
         {/* Teilnehmer anzeigen */}
         <XStack space="$3" mb="$4">
           {people.map((person) => (
-            <YStack key={person.id} alignItems="center" width={60}>
+            <YStack key={person.id} alignItems="center" borderColor="#85DCB" width={60}>
               <Image
                 source={{ uri: person.image }}
                 alt={person.name}
                 height={50}
                 width={50}
                 borderRadius={25}
+                borderWidth={2}
+
                 mb="$1"
               />
-              <Text fontSize="$2" numberOfLines={1} ellipsizeMode="tail">
-                {person.name}
-              </Text>
             </YStack>
           ))}
         </XStack>
@@ -94,7 +93,7 @@ const Communication = () => {
                 mb="$2"
               >
                 <YStack
-                  backgroundColor={isCurrentUser ? '#007AFF' : '#E5E5EA'}
+                  backgroundColor={isCurrentUser ? '#553D67' : '#E5E5EA'}
                   padding="$3"
                   borderRadius={10}
                   maxWidth="70%"
@@ -119,6 +118,7 @@ const Communication = () => {
         {/* Eingabefeld */}
         <XStack space="$2" alignItems="center" mt="$3">
           <TextInput
+            color="#fff"
             value={input}
             onChangeText={setInput}
             placeholder="Nachricht schreiben..."
