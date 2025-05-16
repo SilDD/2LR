@@ -4,21 +4,26 @@ import Swiper from 'react-native-deck-swiper'
 import { YStack, Text, Image, Card } from 'tamagui'
 import { items, Item } from '@/assets/dummydata/_data'
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 // Filter: alle außer People
 const swipeItems = items.filter(item => item.categoryId !== 'people')
 
 const SwipeCards = () => {
   return (
-    <YStack flex={1} justifyContent="center" alignItems="center" p="$4">
+    <YStack
+      flex={1}
+      alignItems="center"
+      backgroundColor="transparent"
+    >
       <Swiper
         cards={swipeItems}
         cardIndex={0}
         stackSize={3}
+
         backgroundColor="transparent"
         animateCardOpacity
-        verticalSwipe={false} // nur links/rechts swipen
+        verticalSwipe={false}
         onSwiped={(cardIndex) => {
           console.log('Card geswiped:', swipeItems[cardIndex]?.name)
         }}
@@ -32,20 +37,22 @@ const SwipeCards = () => {
           if (!card) return null
           return (
             <Card
+                paddingTop={0}
               bordered
+              borderColor="#AAABB8"
               elevate
-              width={width - 80}
-              height={400}
+              width={width - 32}
+              height={height * 0.6}
               borderRadius={20}
               overflow="hidden"
             >
               <Image
                 source={{ uri: card.image }}
-                height={300}
+                height={height * 0.4}
                 width="100%"
                 resizeMode="cover"
               />
-              <YStack p="$3">
+              <YStack p="$3" flex={1} justifyContent="center">
                 <Text fontSize="$6" fontWeight="bold">
                   {card.name}
                 </Text>
