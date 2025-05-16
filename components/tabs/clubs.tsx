@@ -1,11 +1,5 @@
-// components/tabs/Bars.tsx
-import { View } from 'react-native';
-import { Text } from 'tamagui';
+import CategoryListingPage from '../pages/genericListingPage'
 
-export default function Clubs() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text fontSize="$4">🍻 Clubs</Text>
-    </View>
-  );
+export default function BarsListing() {
+  return <CategoryListingPage categoryId="club" />
 }

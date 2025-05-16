@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link, router} from 'expo-router';
-import {Card, Text, XStack} from 'tamagui';
+import {Link, router, useRouter} from 'expo-router';
+import {Card, Text, XStack, YStack} from 'tamagui';
 
 export const HomeCategories: React.FC = () => {
     const categories = [
@@ -12,34 +12,36 @@ export const HomeCategories: React.FC = () => {
         {id: 'people', name: 'People', icon: '👥'}
     ];
 
+    const router = useRouter()
+
+    const handlePress = (categoryId: string) => {
+        router.navigate(`/(tabs)/home/swipe?tab=${categoryId}`)
+    }
+
+
     return (
-        <XStack flexWrap="wrap" justifyContent="space-between" space="$3">
+        <YStack space="$4" p="$4">
+            <Text fontSize="$6" fontWeight="bold">Worauf hast du Lust ?</Text>
+
             {categories.map((category) => (
-
-                    <Card
-                        key={category.id}
-                        elevate
-                        size="$4"
-                        bordered
-                        animation="bouncy"
-                        hoverStyle={{scale: 0.975}}
-                        pressStyle={{scale: 0.95}}
-                         onPress={() => router.navigate(`/(tabs)/home/swipe?tab=${category.id}`)}
-                    >
-                        <Card.Header padded>
-                            <Text fontSize="$8" textAlign="center">
-                                {category.icon}
-                            </Text>
-                            <Text fontSize="$5" textAlign="center" marginTop="$2">
-                                {category.name}
-                            </Text>
-                        </Card.Header>
-                    </Card>
-
-
-            ))
-            }
-        </XStack>
+                <Card
+                    key={category.id}
+                    elevate
+                    bordered
+                    size="$4"
+                    animation="quick"
+                    pressStyle={{scale: 0.97}}
+                    onPress={() => handlePress(category.id)}
+                >
+                    <Card.Header>
+                        <XStack space="$2" alignItems="center">
+                            <Text fontSize="$7">{category.icon}</Text>
+                            <Text fontSize="$5" fontWeight="600">{category.name}</Text>
+                        </XStack>
+                    </Card.Header>
+                </Card>
+            ))}
+        </YStack>
     )
 
 }
