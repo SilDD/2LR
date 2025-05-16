@@ -1,60 +1,51 @@
-import React from 'react'
-import { View, FlatList } from 'react-native'
-import { Text, YStack, Image } from 'tamagui'
-import MapView, { Marker } from 'react-native-maps'
-import { items, Item } from '@/assets/dummydata/_data'
+import React, { useEffect, useState } from 'react'
+import { FlatList } from 'react-native'
+import { YStack, Text, Image, Button, XStack } from 'tamagui'
+import { items } from '@/assets/dummydata/_data'
+import { getFavorites, setFavorite } from '@/hooks/useFavourites'
 
-interface Props {
+type ListingPageProps = {
   categoryId: string
+  showFavoritesOnly?: boolean
 }
 
-const CategoryListingPage: React.FC<Props> = ({ categoryId }) => {
-  // Filtere Items nach Kategorie und nur Favoriten
-  const filteredItems = items.filter(
-    (item) => item.categoryId === categoryId && item.favorite
-  )
+const ListingPage = ({ categoryId, showFavoritesOnly = false }: ListingPageProps) => {
+  const [favorites, setFavorites] = useState<Record<string, boolean>>({})
+
+  useEffect(() => {
+    async function loadFavorites() {
+      const favs = await getFavorites()
+      setFavorites(favs)
+    }
+    loadFavorites()
+  }, [])
+
+  const categoryItems = items.filter((item) => item.categoryId === categoryId)
+  const displayedItems = showFavoritesOnly
+    ? categoryItems.filter((item) => favorites[item.id])
+    : categoryItems
+
+  const toggleFavorite = async (id: string) => {
+    const newFavStatus = !favorites[id]
+    setFavorites((prev) => ({ ...prev, [id]: newFavStatus }))
+    await setFavorite(id, newFavStatus)
+  }
 
   return (
     <YStack flex={1} p="$4" space="$4">
       <Text fontSize="$6" fontWeight="bold" mb="$2">
-        {`Meine ${categoryId.charAt(0).toUpperCase() + categoryId.slice(1)}`}
+        {showFavoritesOnly ? `Meine ${categoryId}` : categoryId}
       </Text>
 
-      {/*{filteredItems.length === 0 ? (*/}
-      {/*  <Text>Keine Favoriten in dieser Kategorie.</Text>*/}
-      {/*) : (*/}
-        <>
-          {/* Karte mit Markern */}
-          <MapView
-            style={{ height: 200, borderRadius: 10 }}
-            initialRegion={{
-              latitude: 52.5200, // z.B. Berlin, anpassen je nach Daten
-              longitude: 13.4050,
-              latitudeDelta: 0.1,
-              longitudeDelta: 0.1,
-            }}
-          >
-            {items.map((item) =>
-              item.address ? (
-                <Marker
-                  key={item.id}
-                  coordinate={{
-                    latitude: 52.5200 + Math.random() * 0.05, // Platzhalter, da wir keine echten Koordinaten haben
-                    longitude: 13.4050 + Math.random() * 0.05,
-                  }}
-                  title={item.name}
-                  description={item.address}
-                />
-              ) : null
-            )}
-          </MapView>
-
-          {/* Liste der Items */}
-          <FlatList
-            data={filteredItems}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <YStack mb="$3" borderWidth={1} borderColor="#ccc" borderRadius={10} overflow="hidden">
+      {displayedItems.length === 0 ? (
+        <Text>Keine Einträge.</Text>
+      ) : (
+        <FlatList
+          data={displayedItems}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <YStack borderWidth={1} borderColor="#ccc" borderRadius={10} overflow="hidden">
+              {item.image && (
                 <Image
                   source={{ uri: item.image }}
                   alt={item.name}
@@ -62,19 +53,26 @@ const CategoryListingPage: React.FC<Props> = ({ categoryId }) => {
                   width="100%"
                   resizeMode="cover"
                 />
-                <YStack p="$3">
-                  <Text fontWeight="600" fontSize="$4">
-                    {item.name}
-                  </Text>
-                  {item.address && <Text color="#666">{item.address}</Text>}
-                </YStack>
-              </YStack>
-            )}
-          />
-        </>
-      {/*)}*/}
+              )}
+              <XStack p="$3" justifyContent="space-between" alignItems="center">
+                <Text fontWeight="600" fontSize="$4">
+                  {item.name}
+                </Text>
+                <Button
+                  onPress={() => toggleFavorite(item.id)}
+                  size="$3"
+                  borderRadius={20}
+                  backgroundColor={favorites[item.id] ? 'red' : 'gray'}
+                >
+                  {favorites[item.id] ? '★' : '☆'}
+                </Button>
+              </XStack>
+            </YStack>
+          )}
+        />
+      )}
     </YStack>
   )
 }
 
-export default CategoryListingPage
+export default ListingPage

@@ -15,7 +15,7 @@ export const HomeCategories: React.FC = () => {
     const router = useRouter()
 
     const handlePress = (categoryId: string) => {
-        router.navigate(`/(tabs)/home/swipe?tab=${categoryId}`)
+        router.navigate(`/(tabs)/home/swipe?tab=${categoryId}&favorites=false`)
     }
 
 
