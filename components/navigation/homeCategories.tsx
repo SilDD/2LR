@@ -29,7 +29,7 @@ export const HomeCategories: React.FC = () => {
   };
 
   // Paare von Kategorien für 2-Spalten-Layout
-  const pairs = [];
+  const pairs: typeof categories[][] = [];
   for (let i = 0; i < categories.length; i += 2) {
     pairs.push(categories.slice(i, i + 2));
   }
