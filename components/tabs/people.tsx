@@ -6,6 +6,7 @@ import { items } from '@/assets/dummydata/_data'
 const PeopleListingPage = () => {
   const peopleItems = items.filter((item) => item.categoryId === 'people')
 
+
   return (
     <YStack flex={1} p="$4" space="$4" backgroundColor="#000">
       <Text fontSize="$6" fontWeight="bold" mb="$2" color="#fff">
